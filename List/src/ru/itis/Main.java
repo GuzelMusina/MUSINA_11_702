@@ -7,14 +7,12 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList list = new ArrayList();
+        Menu menu = new Menu();
 
 
-        list.writeMenu();
+        menu.writeMenu();
         Scanner scanner = new Scanner(System.in);
         int number = scanner.nextInt();
-
-        int array[] = new int[100];
-        int count = 0;
 
 
         while (number != 6) {
@@ -24,9 +22,9 @@ public class Main {
 
                     System.out.println("Write count if numbers in array: ");
                     int m = scanner.nextInt();
-                    list.createArray(m);
+                    list = new ArrayList(m);
 
-                    list.writeMenu();
+                    menu.writeMenu();
                     number = scanner.nextInt();
                     break;
 
@@ -36,7 +34,7 @@ public class Main {
 
                     list.addToEnd(newNumber);
 
-                    list.writeMenu();
+                    menu.writeMenu();
                     number = scanner.nextInt();
                     break;
 
@@ -47,7 +45,7 @@ public class Main {
 
                     list.deleteNumber(index);
 
-                    list.writeMenu();
+                    menu.writeMenu();
                     number = scanner.nextInt();
                     break;
 
@@ -59,7 +57,7 @@ public class Main {
 
                     list.putNumber(index, integer);
 
-                    list.writeMenu();
+                    menu.writeMenu();
                     number = scanner.nextInt();
                     break;
 
@@ -68,25 +66,13 @@ public class Main {
 
                     list.showList();
 
-                    list.writeMenu();
+                    menu.writeMenu();
                     number = scanner.nextInt();
                     break;
 
 
             }
         }
-
-
-//        list.writeMenu();
-//
-//        list.addToEnd(7);
-//        list.addToEnd(8);
-//        list.addToEnd(9);
-//
-//        list.showList();
-//
-//        list.deleteNumber(1);
-//        list.putNumber(2,5);
 
 
     }
