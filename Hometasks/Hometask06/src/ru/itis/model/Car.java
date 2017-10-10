@@ -12,25 +12,35 @@ public class Car {
     private String model;
     private int number;
     private int parkplace;
+    private ParkingPlace parkingPlace;
 
 
-    public Car(String model, int number,int parkplace) {
-        this.model = model;
-        this.number = number;
+    public Car(String model, int number, int parkplace, ParkingPlace parkingPlace) {
+        setModel(model);
+        setNumber(number);
+        setParkplace(parkplace);
+        setParkingPlace(parkingPlace);
 
-        this.parkplace = parkplace;
     }
 
-    public int getParkPlace() {
+    public Car() {
+
+    }
+
+    public ParkingPlace getParkingPlace() {
+        return parkingPlace;
+    }
+
+    public void setParkingPlace(ParkingPlace parkingPlace) {
+        this.parkingPlace = parkingPlace;
+    }
+
+    public int getParkplace() {
         return parkplace;
     }
 
-    public void setParkPlace(Parking parkplace) {
-        parkplace.setParkplace(this.parkplace);
-    }
-
-
-    public Car() {
+    public void setParkplace(int parkplace) {
+        this.parkplace = parkplace;
 
     }
 
@@ -51,28 +61,28 @@ public class Car {
         if (number >= 0) {
             this.number = number;
         } else {
-            System.err.println("Неправильный номер, задано по умолчанию");
+            System.err.println("Number is incorrect, set by default");
             this.number = 0;
         }
     }
 
     @Override
     public String toString() {
-        return "model" + model +
-                "number" + number;
+        return model + " " + number;
     }
 
 
-    public void goOnParking(Parking parking, Car car) {
+    public void goOnParking(Car car) {
         if (car != null) {
-            parking.putCar(car);
+            parkingPlace.putCarOnParking(car);
         }
     }
 
-    public void goOutParking(Parking parking, Car car) {
+    public void goOutParking(Car car) {
         if (car != null) {
-            parking.deleteCarFromParking(car, parking.getCountOfCar());
+            parkingPlace.deleteCarFromParking(car, parkingPlace.getCountOfCar());
         }
     }
 
 }
+
