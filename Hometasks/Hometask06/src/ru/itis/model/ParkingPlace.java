@@ -14,8 +14,9 @@ public class ParkingPlace {
 
     private LocalTime begin;
     private LocalTime finish;
-    Car[] cars = new Car[10];
-    public int countOfCar = 0;
+    private Transport[] transports;
+    private int countOfTransports = 0;
+    private final int COUNT_OF_PARKINGPLACE = 10;
 
     public ParkingPlace() {
     }
@@ -23,6 +24,7 @@ public class ParkingPlace {
     public ParkingPlace(LocalTime begin, LocalTime finish) {
         this.begin = begin;
         this.finish = finish;
+        this.transports = new Transport[COUNT_OF_PARKINGPLACE];
     }
 
     /*public ParkingPlace(LocalTime begin, LocalTime finish, Car[] cars) {
@@ -40,37 +42,25 @@ public class ParkingPlace {
         return "ParkingPlace{" +
                 "begin=" + begin +
                 ", finish=" + finish +
-                ", cars=" + Arrays.toString(cars) +
-                ", countOfCar=" + countOfCar +
+                ", cars=" + Arrays.toString(transports) +
+                ", countOfTransports=" + countOfTransports +
                 '}';
-    }
-
-    public void setBegin(LocalTime begin) {
-        this.begin = begin;
     }
 
     public LocalTime getFinish() {
         return finish;
     }
 
-    public void setFinish(LocalTime finish) {
-        this.finish = finish;
+    public Transport[] getTransports() {
+        return transports;
     }
 
-    public Car[] getCars() {
-        return cars;
+    public int getCountOfTransports() {
+        return countOfTransports;
     }
 
-    public void setCars(Car[] cars) {
-        this.cars = cars;
-    }
-
-    public int getCountOfCar() {
-        return countOfCar;
-    }
-
-    public void setCountOfCar(int countOfCar) {
-        this.countOfCar = countOfCar;
+    public int getCOUNT_OF_PARKINGPLACE() {
+        return COUNT_OF_PARKINGPLACE;
     }
 
     public boolean parkingIsWorking() {
@@ -82,30 +72,30 @@ public class ParkingPlace {
         }
     }
 
-    public void putCarOnParking(Car car) {
+    public void putCarOnParking(Transport transport) {
         if (parkingIsWorking() == true) {
-            if (cars[car.getParkplace()] == null) {
-                cars[car.getParkplace()] = car;
-                countOfCar++;
+            if ((transports[transport.getParkplace()] == null) && (countOfTransports < COUNT_OF_PARKINGPLACE)) {
+                transports[transport.getParkplace()] = transport;
+                countOfTransports++;
             } else {
-                System.err.println("The parkplace " + car.getParkplace() + " for " + car + " is not free");
+                System.err.println("The parkplace " + transport.getParkplace() + " for " + transport + " is not free");
             }
         } else {
             System.err.println("Parking close");
         }
     }
 
-    public void deleteCarFromParking(Car car, int number) {
-        if (car != null && parkingIsWorking() == true) {
-            cars[number] = null;
+    public void deleteCarFromParking(Transport transport) {
+        if ((transport != null) && (parkingIsWorking() == true) && (countOfTransports < COUNT_OF_PARKINGPLACE)) {
+            transports[transport.getParkplace()] = null;
         } else {
             System.err.println("Parking close");
         }
     }
 
-    public void showCars() {
-        for (int i = 0; i < cars.length; i++) {
-            System.out.println(cars[i]);
+    public void showTransports() {
+        for (int i = 0; i < transports.length; i++) {
+            System.out.println(transports[i]);
         }
     }
 }

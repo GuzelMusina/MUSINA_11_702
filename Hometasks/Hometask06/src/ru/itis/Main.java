@@ -1,6 +1,6 @@
 package ru.itis;
 
-import ru.itis.model.Car;
+import ru.itis.transports.*;
 import ru.itis.model.ParkingPlace;
 
 import java.time.LocalTime;
@@ -14,17 +14,18 @@ public class Main {
 
         ParkingPlace parkingPlace = new ParkingPlace(beginTime,finishTime);
 
-        Car car1 = new Car("Audi", 756, 2,parkingPlace);
-        Car car2 = new Car ("Ford", 111, 5,parkingPlace);
-        Car car3 = new Car("Nissan", 777, 7, parkingPlace);
+        Car car = new Car(3,parkingPlace,"BMW",111);
+        Plane plane = new Plane(4, parkingPlace, "Boing", 424);
+        SportCar sportCar = new SportCar(2, parkingPlace, "Nissan", 212);
+        Tank tank = new Tank(6, parkingPlace, "Tiger", "VERY POWERFULL");
+        TracktorBelarus tracktorBelarus = new TracktorBelarus(9, parkingPlace, "Belarus", 3684);
 
-        parkingPlace.putCarOnParking(car1);
-       // car2.goOnParking(car2);
-        car3.goOnParking(car3);
+        car.goOnParking();
+        plane.goOnParking();
+        sportCar.goOnParking();
+        parkingPlace.putCarOnParking(tank);
+        parkingPlace.putCarOnParking(tracktorBelarus);
 
-        //car1.goOutParking(car1);
-        parkingPlace.showCars();
-
-
+        parkingPlace.showTransports();
     }
 }
