@@ -64,16 +64,12 @@ public class ParkingPlace {
     }
 
     public boolean parkingIsWorking() {
-        if (LocalTime.now().isAfter(begin) &&
-                LocalTime.now().isBefore(finish)) {
-            return true;
-        } else {
-            return false;
-        }
+        return LocalTime.now().isAfter(begin) &&
+                LocalTime.now().isBefore(finish);
     }
 
     public void putCarOnParking(Transport transport) {
-        if (parkingIsWorking() == true) {
+        if (parkingIsWorking()) {
             if ((transports[transport.getParkplace()] == null) && (countOfTransports < COUNT_OF_PARKINGPLACE)) {
                 transports[transport.getParkplace()] = transport;
                 countOfTransports++;
