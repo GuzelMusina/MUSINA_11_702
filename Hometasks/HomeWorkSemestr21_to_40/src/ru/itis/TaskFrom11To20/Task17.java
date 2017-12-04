@@ -17,7 +17,6 @@ public class Task17 {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         int k = scanner.nextInt();
-
         if (isPowClear(k)) {
             int[] array = convertToArray(n,k);
             System.out.println(longerLine(array));
@@ -32,6 +31,7 @@ public class Task17 {
         } else
             return false;
     }
+
 
     public static int[] convertToArray(int m, int k) {
         int n = m;
