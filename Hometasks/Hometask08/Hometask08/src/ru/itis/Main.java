@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import ru.itis.models.Point;
@@ -14,33 +17,29 @@ import java.util.LinkedList;
 
 /**
  * 04.12.2017
- * Main2
+ * Main
  *
  * @author Guzel Musina (ITIS)
  * @version v1.0
  */
-public class Main2 extends Application {
-
-    static LinkedList<Point> points = new LinkedList<>();
-    static LinkedList<ru.itis.models.Line> lines = new LinkedList<>();
-
+public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        LinkedList<Point> points = new LinkedList<>();
+        LinkedList<ru.itis.models.Line> lines = new LinkedList<>();
         primaryStage.setTitle("Graphic");
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        launch(args);
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("input.txt")));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.txt")));
         String line = "";
+
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Abcissa");
+        yAxis.setLabel("Ordinate");
+
+        final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
+        lineChart.setTitle("Graphic from Guzel Musi");
+        XYChart.Series series = new XYChart.Series();
 
         try {
             while ((line = reader.readLine()) != null) {
@@ -61,8 +60,20 @@ public class Main2 extends Application {
             }
         });
         Finder finder = new Finder();
-        finder.findLines(points, lines, writer);
-        writer.close();
+
+        //writer.close();
+        for(int i = 0; i< lines.size();i++){
+            lineChart.getData().add(finder.findLines(points, lines, writer, series));
+        }
+
+        Scene scene = new Scene(lineChart, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        launch(args);
     }
 }
 

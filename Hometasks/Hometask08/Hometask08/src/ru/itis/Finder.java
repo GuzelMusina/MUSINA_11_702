@@ -1,5 +1,6 @@
 package ru.itis;
 
+import javafx.scene.chart.XYChart;
 import ru.itis.models.Line;
 import ru.itis.models.Point;
 
@@ -20,24 +21,27 @@ public class Finder {
 
     }
 
-    public LinkedList<Line> findLines(LinkedList<Point> points, LinkedList<Line> lines, BufferedWriter writer) throws Exception {
-        for (int i = 0; i < points.size();) {
-            lines.add(new Line());
-            lines.getLast().addPoint(points.get(0));
-            writer.write(lines.getLast().lastPointInList().getX() + "" + lines.getLast().lastPointInList().getY() + "  ");
-            points.remove(0);
+    public XYChart.Series findLines(LinkedList<Point> points, LinkedList<Line> lines, BufferedWriter writer, XYChart.Series series) throws Exception {
+        //for (int i = 0; i < points.size();) {
+        lines.add(new Line());
+        lines.getLast().addPoint(points.get(0));
+        writer.write(lines.getLast().lastPointInList().getX() + "" + lines.getLast().lastPointInList().getY() + "  ");
+        //series.getData().add(new XYChart.Data(lines.getLast().lastPointInList().getX(), lines.getLast().lastPointInList().getY()));
+        points.remove(0);
 
-            for (int j = 0; j < points.size(); j++) {
-                if (lines.getLast().lastPointInList().getX() <= points.get(j).getX() &&
-                        lines.getLast().lastPointInList().getY() <= points.get(j).getY()) {
-                    lines.getLast().addPoint(points.get(j));
-                    writer.write(lines.getLast().lastPointInList().getX() + "" + lines.getLast().lastPointInList().getY() + "  ");
-                    points.remove(j);
-                    j--;
-                }
+        for (int j = 0; j < points.size(); j++) {
+            if (lines.getLast().lastPointInList().getX() <= points.get(j).getX() &&
+                    lines.getLast().lastPointInList().getY() <= points.get(j).getY()) {
+                lines.getLast().addPoint(points.get(j));
+                writer.write(lines.getLast().lastPointInList().getX() + "" + lines.getLast().lastPointInList().getY() + "  ");
+                //series.getData().add(new XYChart.Data(lines.getLast().lastPointInList().getX(), lines.getLast().lastPointInList().getY()));
+                points.remove(j);
+                j--;
             }
-            writer.write("\n");
-        }return lines;
+            return series;
+        }
+        return series;
     }
 }
+
 
