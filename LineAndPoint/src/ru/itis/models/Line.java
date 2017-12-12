@@ -1,7 +1,6 @@
 package ru.itis.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * 02.12.2017
@@ -22,15 +21,12 @@ public class Line {
         return line;
     }
 
-    public void setLine(ArrayList<Point> line) {
-        this.line = line;
-    }
-
     public void addPoint(Point point) {
         line.add(point);
     }
-
     public Point lastPointInList(){
         return line.get(line.size()-1);
     }
+
+
 }
