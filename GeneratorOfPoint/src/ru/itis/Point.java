@@ -1,13 +1,13 @@
-package ru.itis.models;
+package ru.itis;
 
 /**
- * 02.12.2017
+ * 19.12.2017
  * Point
  *
  * @author Guzel Musina (ITIS)
  * @version v1.0
  */
-public class Point implements Comparable<Point> {
+public class Point {
 
     private int x;
     private int y;
@@ -30,8 +30,4 @@ public class Point implements Comparable<Point> {
         this.y = y;
     }
 
-    @Override
-    public int compareTo(Point o) {
-        return Integer.compare(this.x, o.x);
-    }
 }

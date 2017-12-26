@@ -24,6 +24,7 @@ public class Line {
     public void addPoint(Point point) {
         line.add(point);
     }
+
     public Point lastPointInList(){
         return line.get(line.size()-1);
     }
