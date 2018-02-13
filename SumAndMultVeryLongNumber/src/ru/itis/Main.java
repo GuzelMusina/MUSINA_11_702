@@ -7,16 +7,18 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String firstN = scanner.next();
-        String secondN = scanner.next();
+        String firstN = "123";
+        String secondN = "671";
 
         int f[] = convertNumberToArray(firstN);
         int s[] = convertNumberToArray(secondN);
 
-        System.out.println(Arrays.toString(convertNumberToArray(firstN)));
-        System.out.println(Arrays.toString(convertNumberToArray(secondN)));
+        //  System.out.println(Arrays.toString(convertNumberToArray(firstN)));
+        //  System.out.println(Arrays.toString(convertNumberToArray(secondN)));
 
-        System.out.println(Arrays.toString(sum(f, s)));
+      //  System.out.println(Arrays.toString(sum(f, s)));
+
+        System.out.println(Arrays.toString(mult(f,s)));
 
     }
 
@@ -29,6 +31,17 @@ public class Main {
         return array;
     }
 
+    public static int[] reverseArray(int b[]){
+        int temp;
+
+        for (int i = 0; i <= b.length / 2; i++) {
+            temp = b[i];
+            b[i] = b[(b.length - 1) - i];
+            b[(b.length - 1) - i] = temp;
+        }
+        return b;
+    }
+
     public static int[] sum(int[] a, int[] b) {
 
         int[] helpArray = new int[b.length];
@@ -38,7 +51,7 @@ public class Main {
             helpArray = new int[a.length];
             System.arraycopy(b, 0, helpArray, a.length - b.length, b.length);
             b = Arrays.copyOf(helpArray, helpArray.length);
-        }else{
+        } else {
             System.arraycopy(a, 0, helpArray, b.length - a.length, a.length);
             a = Arrays.copyOf(helpArray, helpArray.length);
         }
@@ -63,5 +76,35 @@ public class Main {
             return newSum;
         }
         return summ;
+    }
+
+    public static int[] mult (int [] a , int [] b){
+
+       // a = reverseArray(a);
+        //b = reverseArray(b);
+
+        int leng = a.length+b.length+1;
+        int [] mult = new int[leng];
+        for(int i =0 ; i<b.length; i++){
+            for(int j =0; j<a.length; j++){
+                int result = a[j] * b[i];
+                mult[i+j] += result % 10;
+                if(mult[i+j]>=10){
+                    mult[i+j+1] += mult[i+j] /10;
+                    mult[i+j] %=10;
+                }
+
+                mult[i+j+1] += result/10;
+                if(mult[i+j+1]>=10){
+                    mult[i+j+2]+= mult[i+j+1]/10;
+                    mult[i+j+1]%=10;
+                }
+
+            }
+        }
+//        while (mult[leng] == 0){
+//            leng--;
+//        }
+        return mult;
     }
 }
