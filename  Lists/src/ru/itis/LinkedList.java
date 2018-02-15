@@ -116,31 +116,6 @@ public class LinkedList implements List {
         }
     }
 
-
-//    public static LinkedList merge(LinkedList sorted1, LinkedList sorted2) {
-//        LinkedList merged = new LinkedList();
-//        while (sorted1.head != null && sorted2.head != null) {
-//            if ((int) sorted1.head.value < (int) sorted2.head.value) {
-//                merged.addToBegin(sorted1.head.value);
-//                sorted1.remove(sorted1.head.value);
-//            } else {
-//                merged.addToBegin(sorted2.head.value);
-//                sorted2.remove(sorted2.head.value);
-//            }
-//        }
-//        if (sorted1.head == null) {
-//            while (sorted2.head != null) {
-//                merged.add(sorted2.head.value);
-//                sorted2.remove(sorted2.head.value);
-//            }
-//        } else if (sorted2.head == null) {
-//            while (sorted1.head != null) {
-//                merged.add(sorted1.head.value);
-//                sorted1.remove(sorted1.head.value);
-//            }
-//        }
-//        return merged;
-//    }
     public static LinkedList merge(LinkedList sortedA, LinkedList sortedB) {
         LinkedList sortedList = new LinkedList();
 
