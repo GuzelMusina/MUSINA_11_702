@@ -4,24 +4,23 @@ public class Main {
 
 
     public static void main(String[] args) {
-        List list = new LinkedList();
-        list.addToBegin(123);
-        list.addToBegin(124);
-        list.addToBegin(125);
-        list.addToBegin(126);
-        list.add(505);
-        list.add(404);
+        LinkedList list1 = new LinkedList();
+        LinkedList list2 = new LinkedList();
 
-        //Object x = list.get(2);
-        //System.out.println(x);
-        //list.contains(124);
+        list1.addToBegin(1);
+        list1.addToBegin(3);
+        list1.addToBegin(6);
+        list1.addToBegin(9);
 
-        //list.remove(124);
-        //list.showAllList();
-        list.reverseList();
-        list.showAllList();
+        list2.addToBegin(2);
+        list2.addToBegin(4);
+        list2.addToBegin(7);
+        list2.addToBegin(8);
+        list2.addToBegin(9);
 
-        //int i = 0;
+
+        LinkedList list3 = LinkedList.merge(list1,list2);
+        list3.showAllList();
     }
 }
 

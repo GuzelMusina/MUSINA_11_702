@@ -8,6 +8,7 @@ package ru.itis;
  * @version v1.0
  */
 public class LinkedList implements List {
+    int count = 0;
 
     private static class Node {
         Object value;
@@ -38,7 +39,7 @@ public class LinkedList implements List {
         int count = 1;
 
         if (index == 0) {
-            return head;
+            return head.value;
         } else {
             newNode = head.next;
             while (index != count) {
@@ -53,13 +54,14 @@ public class LinkedList implements List {
     public void addToBegin(Object object) {
         Node newNode = new Node(object);
 
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
+        if (count == 0) {
+            this.head = newNode;
+            this.tail = newNode;
         } else {
-            newNode.next = head;
-            head = newNode;
+            tail.setNext(newNode);
+            tail = newNode;
         }
+        count++;
     }
 
     @Override
@@ -114,4 +116,50 @@ public class LinkedList implements List {
         }
     }
 
+
+//    public static LinkedList merge(LinkedList sorted1, LinkedList sorted2) {
+//        LinkedList merged = new LinkedList();
+//        while (sorted1.head != null && sorted2.head != null) {
+//            if ((int) sorted1.head.value < (int) sorted2.head.value) {
+//                merged.addToBegin(sorted1.head.value);
+//                sorted1.remove(sorted1.head.value);
+//            } else {
+//                merged.addToBegin(sorted2.head.value);
+//                sorted2.remove(sorted2.head.value);
+//            }
+//        }
+//        if (sorted1.head == null) {
+//            while (sorted2.head != null) {
+//                merged.add(sorted2.head.value);
+//                sorted2.remove(sorted2.head.value);
+//            }
+//        } else if (sorted2.head == null) {
+//            while (sorted1.head != null) {
+//                merged.add(sorted1.head.value);
+//                sorted1.remove(sorted1.head.value);
+//            }
+//        }
+//        return merged;
+//    }
+    public static LinkedList merge(LinkedList sortedA, LinkedList sortedB) {
+        LinkedList sortedList = new LinkedList();
+
+        while(sortedA.head!=null && sortedB.head!=null){
+            if ((int) sortedA.head.value < (int) sortedB.head.value) {
+                sortedList.addToBegin(sortedA.head.value);
+                sortedA.head = sortedA.head.next;
+            } else {
+                sortedList.addToBegin(sortedB.head.value);
+                sortedB.head = sortedB.head.next;
+            }
+        }
+        if(sortedA.head==null){
+                sortedList.addToBegin(sortedB.head.value);
+                sortedB.head = sortedB.head.next;
+        }else if(sortedB.head==null){
+                sortedList.addToBegin(sortedA.head.value);
+                sortedA.head = sortedA.head.next;
+        }
+        return sortedList;
+    }
 }
