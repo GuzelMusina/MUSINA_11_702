@@ -27,11 +27,6 @@ public class ArrayList implements List {
     }
 
     @Override
-    public void addToBegin(Object object) {
-
-    }
-
-    @Override
     public void showAllList() {
 
     }
