@@ -7,8 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String firstN = "123";
-        String secondN = "671";
+        String firstN = "2223";
+        String secondN = "15";
 
         int f[] = convertNumberToArray(firstN);
         int s[] = convertNumberToArray(secondN);
@@ -34,7 +34,7 @@ public class Main {
     public static int[] reverseArray(int b[]){
         int temp;
 
-        for (int i = 0; i <= b.length / 2; i++) {
+        for (int i = 0; i < b.length / 2; i++) {
             temp = b[i];
             b[i] = b[(b.length - 1) - i];
             b[(b.length - 1) - i] = temp;
@@ -80,14 +80,16 @@ public class Main {
 
     public static int[] mult (int [] a , int [] b){
 
-       // a = reverseArray(a);
-        //b = reverseArray(b);
+        reverseArray(a);
+        reverseArray(b);
 
-        int leng = a.length+b.length+1;
+        int leng = a.length+b.length;
         int [] mult = new int[leng];
-        for(int i =0 ; i<b.length; i++){
-            for(int j =0; j<a.length; j++){
-                int result = a[j] * b[i];
+        for(int i =0 ; i<a.length; i++){
+            int first = a[i];
+            for(int j =0; j<b.length; j++){
+                int result = first * b[j];
+
                 mult[i+j] += result % 10;
                 if(mult[i+j]>=10){
                     mult[i+j+1] += mult[i+j] /10;
@@ -102,9 +104,17 @@ public class Main {
 
             }
         }
-//        while (mult[leng] == 0){
-//            leng--;
-//        }
-        return mult;
+        int zeroSince = -1;
+        for (int i = 0; i < mult.length; i++) {
+            if (mult[i] == 0 && zeroSince == -1) {
+                zeroSince = i;
+            } else if (mult[i] != 0 && zeroSince != -1) {
+                zeroSince = -1;
+            }
+        }
+        if (zeroSince != -1) {
+            mult = Arrays.copyOf(mult, zeroSince);
+        }
+        return reverseArray(mult);
     }
 }
