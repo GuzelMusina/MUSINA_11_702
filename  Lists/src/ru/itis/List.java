@@ -9,9 +9,9 @@ package ru.itis;
  * @author Guzel Musina (ITIS)
  * @version v1.0
  */
-public interface List extends Collection {
-    Object get(int index);
-    void add(Object object);
+public interface List<T> extends Collection<T> {
+    T get(int index);
+    void add(T object);
     void showAllList();
     void reverseList();
 }

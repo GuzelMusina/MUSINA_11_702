@@ -7,7 +7,8 @@ package ru.itis;
  * @author Guzel Musina (ITIS)
  * @version v1.0
  */
-public interface Collection {
-    void remove(Object element);
-    boolean contains(Object element);
+public interface Collection<T> extends Iterable<T>{
+    void remove(T element);
+    boolean contains(T element);
+    int size();
 }
