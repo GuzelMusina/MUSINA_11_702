@@ -12,9 +12,25 @@ import java.util.Iterator;
 public class LinkedList<T> implements List<T> {
     int count = 0;
 
-    @Override
-    public Iterator<T> iterator() {
-        return null;
+    public class LinkedListIterator implements Iterator<T>{
+
+        private int currentIndex;
+
+        public LinkedListIterator() {
+            this.currentIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex<count;
+        }
+
+        @Override
+        public T next() {
+            T result = get(currentIndex);
+            currentIndex++;
+            return result;
+        }
     }
 
     private class Node {
@@ -200,4 +216,9 @@ public class LinkedList<T> implements List<T> {
         }
         return stack[0];
     }
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
 }
