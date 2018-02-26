@@ -6,16 +6,17 @@ public class Main {
         GraphCode graphCode = new GraphCode();
 
         int[][] mi = {
-                {1, 0, 0},
-                {0, 1, 1},
-                {1, 1, 1}
+                {1, 1, 0},
+                {1, 1, 1},
+                {0, 1, 1}
         };
 
         graphCode.graphToMatrix(mi);
-       // graphCode.getMi();
-        graphCode.add(0,1);
-        graphCode.delete(1,1);
-        graphCode.showAllList();
+        //graphCode.getMi();
+        //graphCode.add(0,1);
+        //graphCode.delete(0,1);
+       // graphCode.show(2);
         graphCode.getAdjacent(1);
+        graphCode.modify(1);
     }
 }
