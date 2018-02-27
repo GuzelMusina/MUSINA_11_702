@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * 22.02.2018
  * Graph Code
+ *
  * @author Guzel Musina (ITIS)
  * @version v1.0
  */
@@ -15,6 +16,7 @@ public class GraphCode<T> {
     private List<Edge> edges = new LinkedList<>();
     private int count = 0;
     private int leng = 0;
+    private static int[][] matrix;
 
 
     @Override
@@ -74,26 +76,25 @@ public class GraphCode<T> {
         return this;
     }
 
-    // int [][] getMI(): построение матрицы инцидентнoсти
-    //TODO
+    // построение матрицы инцидентнoсти
     public int[][] getMi() {
-        int[][] mi = new int[6][6];
-        int j = 0;
-        for (int i = 0; i < mi.length; i++) {
-            Edge edge = new Edge(edges.get(i).getNodeOne(), edges.get(i).getNodeTwo());
-            for (j = 0; j < mi.length; j++) {
-                if (edges.get(i).equals(edge)) {
-                    mi[i][j] = 1;
-                    continue;
+        matrix = new int[edges.size()][edges.size()];
+        int counter = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (counter < edges.size()) {
+                    if ((edges.get(counter).getNodeOne() == i && edges.get(counter).getNodeTwo() == j)) {
+                        matrix[i][j] = 1;
+                        counter++;
+                    } else {
+                        matrix[i][j] = 0;
+                    }
                 } else {
-                    mi[i][j] = 0;
-                    continue;
+                    break;
                 }
             }
-            continue;
-
         }
-        return mi;
+        return matrix;
     }
 
     // удаление ребра (i,j) из списка;
@@ -137,13 +138,14 @@ public class GraphCode<T> {
         return list;
     }
 
- // void modify(int i): модифицировать список в связи с удалением вершины i из графа,
-    public void modify (int i){
-        for(int n = 0; n<edges.size(); n++){
-            if(edges.get(n).nodeOne==i || edges.get(n).nodeTwo==i){
-                delete(edges.get(n).nodeOne , edges.get(n).nodeTwo);
+    // void modify(int i): модифицировать список в связи с удалением вершины i из графа,
+    public void modify(int i) {
+        for (int n = 0; n < edges.size(); n++) {
+            if (edges.get(n).nodeOne == i || edges.get(n).nodeTwo == i) {
+                delete(edges.get(n).nodeOne, edges.get(n).nodeTwo);
             }
-        } }
+        }
+    }
 }
 
 

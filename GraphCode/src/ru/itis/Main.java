@@ -12,10 +12,10 @@ public class Main {
         };
 
         graphCode.graphToMatrix(mi);
-        //graphCode.getMi();
-        //graphCode.add(0,1);
-        //graphCode.delete(0,1);
-       // graphCode.show(2);
+        graphCode.getMi();
+        graphCode.add(0, 1);
+        graphCode.delete(0, 1);
+        graphCode.show(2);
         graphCode.getAdjacent(1);
         graphCode.modify(1);
     }
