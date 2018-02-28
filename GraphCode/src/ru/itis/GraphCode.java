@@ -36,10 +36,7 @@ public class GraphCode<T> {
 
         @Override
         public String toString() {
-            return "Edge{" +
-                    "nodeOne=" + nodeOne +
-                    ", nodeTwo=" + nodeTwo +
-                    '}';
+            return nodeOne + " " + nodeTwo;
         }
 
         public int getNodeOne() {
@@ -61,15 +58,22 @@ public class GraphCode<T> {
     }
 
     //построение графа по матрице инцидентности
-
     public GraphCode graphToMatrix(int[][] mi) {
         leng = mi.length;
-        //GraphCode graphCode = new GraphCode();
         for (int i = 0; i < mi.length; i++) {
-            for (int j = 0; j <= i; j++) {
+            for (int j = 0; j <= mi.length - 1; j++) {
+                int temp = 0;
+                if (mi[j][i] == 1) {
+                    temp = j;
+                    j++;
+                } else if(mi[i][j]==0) {
+                    continue;
+                }
                 if (mi[i][j] == 1) {
-                    this.add(i, j);
-                    count++;
+                    this.add(temp, j);
+                    temp = 0;
+                    i++;
+                    j = 0;
                 }
             }
         }
@@ -131,14 +135,13 @@ public class GraphCode<T> {
             }
             if (count >= m) {
                 list.add(i);
-                System.out.println(i);
             }
             count = 0;
         }
         return list;
     }
 
-    // void modify(int i): модифицировать список в связи с удалением вершины i из графа,
+    // модифицировать список в связи с удалением вершины i из графа,
     public void modify(int i) {
         for (int n = 0; n < edges.size(); n++) {
             if (edges.get(n).nodeOne == i || edges.get(n).nodeTwo == i) {
