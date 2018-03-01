@@ -1,8 +1,7 @@
 package ru.itis;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+
 
 /**
  * 22.02.2018
@@ -59,21 +58,22 @@ public class GraphCode<T> {
 
     //построение графа по матрице инцидентности
     public GraphCode graphToMatrix(int[][] mi) {
-        leng = mi.length;
         for (int i = 0; i < mi.length; i++) {
-            for (int j = 0; j <= mi.length - 1; j++) {
+            for (int j = 0; j <= mi.length - 1; ) {
+
                 int temp = 0;
                 if (mi[j][i] == 1) {
                     temp = j;
                     j++;
                 } else if(mi[i][j]==0) {
-                    continue;
+                    j++;
                 }
                 if (mi[i][j] == 1) {
                     this.add(temp, j);
-                    temp = 0;
                     i++;
                     j = 0;
+                    count++;
+                    temp =0;
                 }
             }
         }
@@ -150,5 +150,3 @@ public class GraphCode<T> {
         }
     }
 }
-
-

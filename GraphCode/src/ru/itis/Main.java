@@ -15,7 +15,7 @@ public class Main {
         graphCode.getMi();
         graphCode.add(0, 1);
         graphCode.delete(0, 1);
-        graphCode.show(2);
+        graphCode.show(1);
         graphCode.getAdjacent(1);
         graphCode.modify(1);
     }
