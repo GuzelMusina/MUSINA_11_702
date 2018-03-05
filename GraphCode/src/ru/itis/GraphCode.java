@@ -17,14 +17,16 @@ public class GraphCode<T> {
     private int leng = 0;
     private static int[][] matrix;
 
+    public List<Edge> getEdges() {
+        return edges;
+    }
 
     @Override
     public String toString() {
-        return System.getProperty("line.separator") +
-                "Edges: " + edges.toString();
+       return edges.toString();
     }
 
-    private class Edge {
+    public static class Edge {
         public int nodeOne;
         public int nodeTwo;
 
@@ -59,8 +61,14 @@ public class GraphCode<T> {
     //построение графа по матрице инцидентности
     public GraphCode graphToMatrix(int[][] mi) {
         for (int i = 0; i < mi.length; i++) {
-            for (int j = 0; j <= mi.length - 1; ) {
+            for (int j = 0; j <= i; j++ ) {
 
+                if(mi[i][j] ==1){
+                    this.add(i, j);
+                    count++;
+                }
+            }
+/**
                 int temp = 0;
                 if (mi[j][i] == 1) {
                     temp = j;
@@ -75,7 +83,7 @@ public class GraphCode<T> {
                     count++;
                     temp =0;
                 }
-            }
+            }**/
         }
         return this;
     }
@@ -83,19 +91,13 @@ public class GraphCode<T> {
     // построение матрицы инцидентнoсти
     public int[][] getMi() {
         matrix = new int[edges.size()][edges.size()];
-        int counter = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j <= i; j++) {
-                if (counter < edges.size()) {
-                    if ((edges.get(counter).getNodeOne() == i && edges.get(counter).getNodeTwo() == j)) {
-                        matrix[i][j] = 1;
-                        counter++;
-                    } else {
-                        matrix[i][j] = 0;
-                    }
-                } else {
-                    break;
-                }
+        for (int i = 0; i < edges.size(); i++) {
+            for (int j = 0; j <edges.size(); j++) {
+                   if((edges.get(i).nodeOne == j) || (edges.get(i).nodeTwo == j)){
+                       matrix[j][i] = 1;
+                   }else {
+                       matrix[j][i] = 0;
+                   }
             }
         }
         return matrix;
@@ -103,7 +105,7 @@ public class GraphCode<T> {
 
     // удаление ребра (i,j) из списка;
     public void delete(int nodeOne, int nodeTwo) {
-        for (int i = 0; i < leng * leng; i++) {
+        for (int i = 0; i < edges.size(); i++) {
             if (edges.get(i).getNodeOne() == nodeOne && edges.get(i).getNodeTwo() == nodeTwo) {
                 edges.remove(edges.get(i));
                 break;
@@ -143,9 +145,11 @@ public class GraphCode<T> {
 
     // модифицировать список в связи с удалением вершины i из графа,
     public void modify(int i) {
-        for (int n = 0; n < edges.size(); n++) {
+        int consta = 2;
+        for (int n = 0; n < consta; n++) {
             if (edges.get(n).nodeOne == i || edges.get(n).nodeTwo == i) {
                 delete(edges.get(n).nodeOne, edges.get(n).nodeTwo);
+                n=0;
             }
         }
     }

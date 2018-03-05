@@ -92,6 +92,18 @@ public class LinkedList<T> implements List<T> {
         return count;
     }
 
+    @Override
+    public String toString() {
+        String result = "";
+        Node current = head;
+        result+= current.value + ",";
+        while (current.next != null) {
+            current = current.next;
+            result += current.value + ",";
+        }
+        return result;
+    }
+
     //Метод вывода всего списка на консоль
     @Override
     public void showAllList() {
