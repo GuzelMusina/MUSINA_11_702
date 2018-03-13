@@ -2,6 +2,8 @@ package ru.itis;
 
 import javafx.scene.chart.ValueAxis;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -95,8 +97,101 @@ public class Analyzer {
 
     }
 
-    public List<Variable> process(String input) {
+    LinkedHashMap<String, Integer> process(String input) {
 
+        LinkedHashMap<String, Integer> list = new LinkedHashMap<>();
+        int indexLeft = -1;
+        int indexRight = -1;
+        while (indexRight != input.length() - 1) {
+            indexLeft = input.indexOf(':', indexLeft + 1);              // It returns the index of first occurrence if character ch,
+            // starting from the specified index “fromIndex”.
+            String number;
+            int value = 0;
+
+
+            if (indexRight == 0) {
+                number = input.substring(0);
+            } else {
+                number = input.substring(indexRight + 1, indexLeft);
+            }
+            indexRight = input.indexOf(';', indexRight + 1);
+
+
+            if (list.containsKey(number)) {                                         //return true, if collection has key "number"
+                list.remove(number);
+            }
+
+
+            try {
+                value = Integer.parseInt(input.substring(indexLeft + 2, indexRight)); // substring: return substring from indexLeft+2, to indexRight
+            } catch (Exception e) {
+                char operator = ' ';
+                StringBuilder part = new StringBuilder();
+                boolean minus = false;
+
+
+                for (int i = indexLeft + 2; i <= indexRight; i++) {
+
+                    char current = input.charAt(i);
+
+
+                    if (current != ';' && current != '+' && current != '-' && current != '*' && current != '/') {
+                        part.append(current);
+                    } else {
+                        if (!list.containsKey(part.toString()) && (!part.toString().equals("") && current != '-')) {
+                            throw new NotFoundVariableException();
+                        }
+
+                        int partValue = 0;
+
+
+                        if (part.toString().equals("") && current == '-') {
+                            minus = true;
+                        }
+
+
+                        if (!part.toString().equals("")) {
+                            if (minus) {
+                                partValue = -list.get(part.toString());
+                            } else {
+                                partValue = list.get(part.toString());
+                            }
+                        }
+
+                        minus = false;
+
+                        switch (operator) {
+                            case ('-'): {
+                                value -= partValue;
+                                break;
+                            }
+                            case ('+'): {
+                                value += partValue;
+                                break;
+                            }
+                            case ('*'): {
+                                value *= partValue;
+                                break;
+                            }
+                            case ('/'): {
+                                value /= partValue;
+                                break;
+                            }
+                            case (' '): {
+                                value = partValue;
+                            }
+                        }
+                        if (current != ';') {
+                            operator = current;
+                        }
+                        part = new StringBuilder();
+                    }
+                }
+            }
+
+            list.put(number, value);
+        }
+        return list;
     }
 
 }

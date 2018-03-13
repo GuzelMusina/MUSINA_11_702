@@ -8,24 +8,35 @@ package ru.itis;
  * @version v1.0
  */
 public class Variable {
-    private char letter;
+    private String name;
     private int number;
 
-    public Variable(char letter, int number) {
-        if ((letter >= 'A' && letter <= 'Z') && (number >= 1 && number <= 9)) {
-            this.letter = letter;
-            this.number = number;
-        }
+    public Variable(String name, int number) {
+        this.name=name;
+        this.number = number;
     }
 
     public Variable() {
     }
 
-    public char getLetter() {
-        return letter;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getNumber() {
         return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return name + "=" + number ;
     }
 }

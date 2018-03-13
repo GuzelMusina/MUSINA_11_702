@@ -7,6 +7,6 @@ package ru.itis;
  * @author Guzel Musina (ITIS)
  * @version v1.0
  */
-public class NotFoundVariableException {
+public class NotFoundVariableException extends RuntimeException {
 
 }
