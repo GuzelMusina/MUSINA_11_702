@@ -104,7 +104,7 @@ public class Analyzer {
         int indexRight = -1;
         while (indexRight != input.length() - 1) {
             indexLeft = input.indexOf(':', indexLeft + 1);              // It returns the index of first occurrence if character ch,
-            // starting from the specified index “fromIndex”.
+                                                                                    // starting from the specified index “fromIndex”.
             String number;
             int value = 0;
 
