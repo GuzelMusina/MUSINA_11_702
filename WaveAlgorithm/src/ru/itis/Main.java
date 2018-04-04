@@ -3,6 +3,7 @@ package ru.itis;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -29,6 +30,9 @@ public class Main {
             throw new RuntimeException();
         }
 
-        AlgorithmLee algorithmLee=new AlgorithmLee(net,begin,end);
+        ArrayList<Point> answer =AlgorithmLee.getWay(net,begin,end);
+        for(Point point: answer){
+            System.out.println(point.getX() + " " + point.getY());
+        }
     }
 }
