@@ -57,28 +57,24 @@ public class TreeBstImpl<T extends Comparable<T>> implements Tree<T> {
 
     //TODO:
     public boolean remove(T value) {
-       return false;
+        return false;
     }
 
-    //TODO:
     public boolean contains(T value) {
-        Node root = getRoot();
-        Node nodeToFind = new Node(value);
-        if(finder(root,nodeToFind).value.equals(value)){
-            return true;
-        }
-            return false;
+        return finderForContains(this.root, value);
     }
 
-    public Node finder ( Node current,  Node nodeToCompare){
-        if(current.value.compareTo(nodeToCompare.value)==0){
-            return current;
-        }else if (current.value.compareTo(nodeToCompare.value)>0){
-            return finder(current.left, nodeToCompare );
-        }else if (current.value.compareTo(nodeToCompare.value)<0){
-            return finder(current.right,nodeToCompare);
+    private boolean finderForContains(Node current, T value) {
+        if (current != null) {
+            if (current.value.equals(value)) {
+                return true;
+            } else if (current.value.compareTo(value) > 0) {
+                return finderForContains(current.left, value);
+            } else {
+                return finderForContains(current.right, value);
+            }
         }
-        return null;
+        return false;
     }
 
     //TODO:
@@ -87,10 +83,23 @@ public class TreeBstImpl<T extends Comparable<T>> implements Tree<T> {
 
     }
 
-    //TODO
+    
     @Override
     public boolean isBst() {
-        return false;
+        return isBst(this.root);
+    }
+
+    private boolean isBst(Node current) {
+        if (current != null) {
+            if ((current.left != null && current.value.compareTo(current.left.value) < 0 ||
+                    current.right != null && current.value.compareTo(current.right.value) >= 0)) {
+                return false;
+            } else {
+                isBst(current.left);
+                isBst(current.right);
+            }
+        }
+        return true;
     }
 
     //TODO:

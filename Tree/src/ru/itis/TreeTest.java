@@ -48,5 +48,15 @@ public class TreeTest {
         boolean result = treeTest.contains(5);
         Assert.assertTrue(result);
     }
-
+    @Test
+    public void testTree5(){
+        String result = "2 3 4 4 5 5 6 6 7 8 10 ";
+       for (Integer number : array){
+           Assert.assertTrue(treeTest.contains(number));
+       }
+    }
+    @Test
+    public void testTree6(){
+        Assert.assertTrue(treeTest.isBst());
+    }
 }
