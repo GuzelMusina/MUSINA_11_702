@@ -39,7 +39,6 @@ public class HashMap<K, V> {
             }
         }return null;
     }
-
     public int getPosition(K key) {
         return key.hashCode() % COUNT;
     }

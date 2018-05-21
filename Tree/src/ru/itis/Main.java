@@ -12,6 +12,7 @@ public class Main {
         }
         tree.print();
         System.out.println(tree.contains(1));
+        tree.printByLevels();
 //        Node a = new Node(5);
 //        Node b = new Node(4);
 //        Node c = new Node(8);

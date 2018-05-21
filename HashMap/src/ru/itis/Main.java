@@ -28,8 +28,10 @@ public class Main {
         humanMyHashMap.put(key4, guzel);
         humanMyHashMap.put(key5, masha);
         humanMyHashMap.put(key6, po);
+        humanMyHashMap.put(key6, krud);
         humanMyHashMap.put(key7, krud);
 
-        System.out.println(humanMyHashMap.get("Miss"));
+        System.out.println(humanMyHashMap.get("Fashion"));
+
     }
 }
