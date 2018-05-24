@@ -124,4 +124,51 @@ public class ParseTree {
             levels(node.right, level);
         }
     }
+    public int evaluate(){
+       return evaluate(root);
+    }
+    private int result =0;
+
+    public int evaluate(Node root){
+        if(root.value == '+' || root.value=='-' || root.value=='*' || root.value=='/' ){
+            int a=0;
+            int b=0;
+
+            if(root.left.value>='0' && root.left.value<='9'){
+                a = root.left.value - '0';
+            }else{
+                evaluate(root.left);
+            }
+            if(root.right.value>='0' && root.right.value<='9'){
+                b = root.right.value - '0';
+            }else{
+                evaluate(root.right);
+            }
+            if (root.value == '+') {
+              result+= a+b;
+              return result;
+            }
+            if (root.value == '-' && (a!=0 || b!=0)) {
+                result = a-result;
+                return result;
+            }
+            if (root.value == '*' && a!=0 && b!=0) {
+                if(result!=0){
+                    result*=a*b;
+                }else{
+                    result=a*b;
+                }
+                return result;
+            }
+            if (root.value == '/' && (a!=0 || b!=0)) {
+                if(result!=0){
+                    result =a/result;
+                }else {
+                    result=a/b;
+                }
+                return result;
+            }
+        }
+        return result;
+    }
 }

@@ -7,7 +7,7 @@ public class Main {
        String string = new String("(3+(5*4))");
        ParseTree tree = new ParseTree();
        tree.insert(string);
-       tree.printByLevels();
+       tree.printByLevels();System.out.println(tree.evaluate());
 
 
     }
