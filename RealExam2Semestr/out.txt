@@ -1,0 +1,4 @@
+[bcda, acdba, dabc, abcd, bacd, abcdefghigk]
+[dabc, abcd, bacd, abcdefghigk, bcda, acdba]
+[dabc, bacd, abcd, abcdefghigk, bcda, acdba]
+[abcd, abcdefghigk, acdba, bacd, bcda, dabc]

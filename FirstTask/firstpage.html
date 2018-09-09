@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: 'Abril Fatface', cursive;
+        }
+
+        .row {
+            padding-top: 20px;
+        }
+
+        .titleMe {
+            position: relative;
+            background-color: #ffe3e1;
+            width: 100%;
+            height: 100%;
+            font-family: 'Abril Fatface', cursive;
+        }
+
+        .lead {
+
+        }
+
+        .text{
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .row {
+            width: 100%;
+            height: 100%;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .btn {
+            font-family: 'Abril Fatface', cursive;
+        }
+
+        .navbar {
+            font-family: 'Abril Fatface', cursive;
+            position: relative;
+
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+    </style>
+    <script>
+        function getAnalyzingPapers() {
+            $.ajax({
+                url: "/me-prediction/analyzing/papers",
+                type: "GET",
+                success: function (response) {
+                    var papersTable = document.getElementById('papersTable');
+                    papersTable.innerHTML = "";
+                    var newHtmlInner = "";
+                    for (var i = 0; i < response.length; i++) {
+                        newHtmlInner += '<tr>';
+                        newHtmlInner += '<td>' + response[i]['title'] + '</td>' +
+                            '<td>' + response[i]['author'] + '</td>';
+                        if (response[i]['state'] === 'analyzed') {
+                            newHtmlInner += '<td><kbd style="background-color: #f6ddfb">' + response[i]['state'] + '</kbd></td>';
+                        } else {
+                            newHtmlInner += '<td><kbd style="background-color:darkred;">' + response[i]['state'] + '</kbd></td>';
+                        }
+                        newHtmlInner += '<td>' + response[i]['predictedLikes'] + '</td>' +
+                            '</tr>';
+                        papersTable.innerHTML = newHtmlInner;
+                    }
+                }
+            })
+        }
+
+        function sendCustomPaper(title, username, paperText) {
+            var json = {title: title, author: username, paperText: paperText};
+            $.ajax({
+                url: "/me-prediction/papers",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                complete: function () {
+                    getAnalyzingPapers();
+                }
+            })
+        }
+
+        function sendMediumPaper(link) {
+            $.ajax({
+                url: "/me-prediction/papers/medium?link=" + link,
+                type: "GET",
+                success: function (response) {
+                    getAnalyzingPapers();
+                }
+            })
+        }
+
+        function getTitles(username) {
+            $.ajax({
+                url: "/medium/users/" + username + "/titles",
+                type: "GET",
+                success: function (response) {
+                    var papersPlace = document.getElementById('papers');
+                    var newHtml = "<ul class='list-group'>";
+                    for (var i = 0; i < response.length; i++) {
+                        newHtml += "<li class='list-group-item'>" + "<a target='_blank' href='" +
+                            response[i]['link'] + "'>" + response[i]['title'] + "</a>"
+                            + "<p style='cursor: pointer' onclick='sendMediumPaper(\"" + response[i]["link"] + "\")'><span style='color: darkslategrey; float: right' class=\"fa fa-hand-o-right\"></span></p>" + "</li>";
+                    }
+                    newHtml += "</ul>";
+                    papersPlace.innerHTML = newHtml;
+                }
+            })
+        }
+    </script>
+    <title>Guzel Musina</title>
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-left: 70px;">
+    <a class="navbar-brand" href="#">News</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    More
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Video</a>
+                    <a class="dropdown-item" href="#">Photo</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Interviews</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-danger" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="titleMe">
+    <div class="container">
+        <h1 class="display-4">Guzel Musina</h1>
+        <p> </p>
+        <p class="text">I am from Kazan, Russia.
+            In january 2018 I became the owner of the title "Miss Kazan 2018", in april 2018 I became the owner of the title "Miss Culture and Torism of the World 2018".
+            I am student of Kazan Federal University and I will be an IT specialist in my future.
+            Moreover, I work as model since 2012, I always participate on our national and culture events.
+            I meet the delegation from other cities and countries, because I am the face of our Republic.
+            I dance about 15 years. In my free time I like to travel, read books, dance and meeting with my friends.
+            I like to do good acts for people, I am kind and self-confident. </p>
+        <p class="lead">If you want know me better you can find all information here</p>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card" style="width: 20rem; margin-left: 70px; ">
+                <img class="card-img-top" src="../../PRACTICE_ITIS_1/MyWeb/DSC09633.jpg" alt="Read">
+                <div class="card-body">
+                    <p> </p>
+                    <p class="card-text">Read about Miss Kazan, Miss Culture and Tourism World and model life</p>
+                </div>
+                <p> </p>
+                <button type="button" class="btn btn-outline-danger">Read more</button>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="card" style="width: 20rem; margin-left: 70px; ">
+                <img class="card-img-top" src="../../PRACTICE_ITIS_1/MyWeb/DP3354.jpg" alt="Read">
+                <div class="card-body">
+                    <p> </p>
+                    <p class="card-text">Watching video with me, some interview and my video from travel</p>
+                </div>
+                <p> </p>
+                <button type="button" class="btn btn-outline-danger">Watch more</button>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card" style="width: 20rem; margin-left: 70px; ">
+                <img class="card-img-top" src="../../PRACTICE_ITIS_1/MyWeb/AW2B7483.jpg" alt="Read">
+                <div class="card-body">
+                    <p> </p>
+                    <p class="card-text">Read about interesting fact about me, about my chlidhood</p>
+                </div>
+                <p> </p>
+                <button type="button" class="btn btn-outline-danger">Read more</button>
+            </div>
+            <p> </p>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
